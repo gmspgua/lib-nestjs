@@ -1,0 +1,88 @@
+{
+  "name": "nestjs-lib-starter",
+  "version": "0.0.1",
+  "description": "NestJS library starter",
+  "author": "Krzysztof Szostak",
+  "scripts": {
+    "commit": "git-cz",
+    "test": "jest",
+    "test:watch": "jest --watch",
+    "test:cov": "jest --coverage",
+    "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "lint": "tslint -p tsconfig.json -c tslint.json",
+    "build": "rm -rf dist && tsc -p tsconfig.json",
+    "prepublish:npm": "npm run build",
+    "publish:npm": "npm publish --access public",
+    "prepublish:next": "npm run build",
+    "publish:next": "npm publish --access public --tag next",
+    "build:test": "npm build && npm pack"
+  },
+  "husky": {
+    "hooks": {
+      "pre-push": "npm run test && npm run lint",
+      "pre-commit": "lint-staged",
+      "prepare-commit-msg": "exec < /dev/tty && git cz --hook || true"
+    }
+  },
+  "engines": {
+    "node": ">= 10.15.1"
+  },
+  "peerDependencies": {
+    "@nestjs/common": "^6.0.0",
+    "@nestjs/core": "^6.0.0",
+    "reflect-metadata": "^0.1.12",
+    "rxjs": "^6.0.0"
+  },
+  "devDependencies": {
+    "@nestjs/common": "6.5.3",
+    "@nestjs/core": "6.5.3",
+    "@nestjs/testing": "6.5.3",
+    "@types/jest": "24.0.17",
+    "@types/node": "11.13.4",
+    "@types/supertest": "2.0.7",
+    "cz-conventional-changelog": "^3.0.2",
+    "husky": "3.0.3",
+    "jest": "24.8.0",
+    "lint-staged": "9.2.1",
+    "prettier": "1.17.0",
+    "rxjs": "6.5.2",
+    "supertest": "4.0.2",
+    "ts-jest": "24.0.2",
+    "tslint": "5.16.0",
+    "typescript": "3.5.3"
+  },
+  "lint-staged": {
+    "*.ts": [
+      "prettier --write",
+      "git add"
+    ]
+  },
+  "jest": {
+    "moduleFileExtensions": [
+      "js",
+      "json",
+      "ts"
+    ],
+    "rootDir": "test",
+    "testRegex": ".spec.ts$",
+    "transform": {
+      "^.+\\.(t|j)s$": "ts-jest"
+    },
+    "collectCoverageFrom": [
+      "**/*.(t|j)s"
+    ],
+    "coverageDirectory": "../coverage",
+    "testEnvironment": "node"
+  },
+  "dependencies": {
+    "@nestjs/common": "^6.5.3",
+    "@nestjs/core": "^6.5.3",
+    "reflect-metadata": "^0.1.13"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    }
+  }
+}
